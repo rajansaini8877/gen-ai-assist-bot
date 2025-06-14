@@ -1,0 +1,167 @@
+body {
+  background-color: #f0f2f5;
+}
+
+#chat-app-wrapper {
+  /* New wrapper for the entire application */
+  width: 100%;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Stack children vertically */
+  height: 100%;
+  background-color: #fff;
+  /* Background for the whole app */
+}
+
+#main-content {
+  /* Container for predefined questions and chat window */
+  display: flex;
+  flex-grow: 1;
+  /* Allows it to take up available space */
+  overflow: hidden;
+  /* Important for inner scrolling elements */
+}
+
+#predefined-questions-container {
+  width: 20%;
+  /* Fixed width for the predefined questions */
+  background-color: #f0f0f0;
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+  /* Make it scrollable */
+  padding: 24px;
+  flex-shrink: 0;
+  /* Prevent it from shrinking */
+}
+
+#predefined-questions h4 {
+  margin-bottom: 10px;
+}
+
+#chat-window {
+  /* New wrapper for header, messages, and input */
+  display: flex;
+  flex-direction: column;
+  /* Stack its children vertically */
+  flex-grow: 1;
+  /* Allows it to take up remaining horizontal space */
+}
+
+#chat-header {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+#chat-messages {
+  flex-grow: 1;
+  /* Messages take up all available vertical space */
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.message {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.message .avatar {
+  margin-right: 10px;
+}
+
+.message.user .avatar {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.message .content {
+  background-color: #e0e0e0;
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.message.user .content {
+  background-color: #000000;
+  color: #fff;
+}
+
+#chat-input-area {
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* Prevent it from shrinking */
+}
+
+#chat-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.ui.form .field {
+  margin: 0 1em 0 1em;
+}
+
+/* Semantic UI Loader for typing effect */
+.jumping-dots span {
+  position: relative;
+  bottom: 0px;
+  animation: jump 2s infinite;
+}
+
+.jumping-dots .dot-1 {
+  animation-delay: 200ms;
+}
+
+.jumping-dots .dot-2 {
+  animation-delay: 400ms;
+}
+
+.jumping-dots .dot-3 {
+  animation-delay: 600ms;
+}
+
+@keyframes jump {
+  0% {
+    bottom: 0px;
+  }
+
+  20% {
+    bottom: 5px;
+  }
+
+  40% {
+    bottom: 0px;
+  }
+}
+
+.message .timestamp {
+  font-size: 0.7em;
+  color: #888;
+  margin-top: 5px;
+  display: block;
+  /* Ensures it's on its own line */
+}
+
+.message.user .timestamp {
+  color: rgba(255, 255, 255, 0.7);
+  /* Lighter color for user messages */
+}

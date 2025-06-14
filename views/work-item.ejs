@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Semantic UI Chatbot</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/styles/work-item.css">
+  <script src="/semantic/dist/semantic.min.js"></script>
+  <script src="/scripts/work-item.js"></script>
+</head>
+
+<body>
+
+  <div id="chat-app-wrapper" class="ui raised segment">
+    <div id="main-content">
+      <div id="predefined-questions-container">
+        <h4 class="ui header">Quick Questions</h4>
+        <div class="ui relaxed list">
+          <a class="item predefined-q" data-question="What are your services?">What are your services?</a>
+          <a class="item predefined-q" data-question="How do I contact support?">How do I contact support?</a>
+          <a class="item predefined-q" data-question="What are your operating hours?">What are your operating hours?</a>
+          <a class="item predefined-q" data-question="Can I get a demo?">Can I get a demo?</a>
+          <a class="item predefined-q" data-question="What payment methods do you accept?">What payment methods do you
+            accept?</a>
+          <a class="item predefined-q" data-question="Do you offer refunds?">Do you offer refunds?</a>
+          <a class="item predefined-q" data-question="How long does shipping take?">How long does shipping take?</a>
+          <a class="item predefined-q" data-question="Where are you located?">Where are you located?</a>
+        </div>
+      </div>
+
+      <div id="chat-window">
+        <div id="chat-header">
+          <h2 class="ui center aligned header">
+            <div class="ui image avatar">
+              <img src="/assets/bot.png">
+            </div>
+            Agent Assist
+          </h2>
+        </div>
+        <div id="chat-messages">
+          <div class="message bot">
+            <div class="ui circular image avatar">
+              <img src="/assets/bot.png">
+            </div>
+            <div class="content">
+              Hi there! How can I help you today?
+              <span class="timestamp">10:30 PM</span>
+            </div>
+          </div>
+          <div class="message user">
+            <div class="content">
+              Hello, I'm looking for some information.
+              <span class="timestamp">10:30 PM</span>
+            </div>
+            <div class="ui circular image avatar">
+              <img src="/assets/user.png">
+            </div>
+          </div>
+        </div>
+
+        <div id="chat-input-area" class="ui form">
+          <div class="field" style="flex-grow: 1;">
+            <textarea id="chat-input" rows="2" placeholder="Type your message here..."></textarea>
+          </div>
+          <button id="send-button" class="ui primary right labeled icon button" fdprocessedid="c9rwy">
+            <i class="paper plane icon"></i>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>
