@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
+const { invokeBedrockAgentKB } = require("./src/services/generate-answer");
 const app = express();
 // const { fetchSimilarAct, fetchSimilarAppeal } = require('./src/services/fetch-similar');
 // const { generateAnswer, generateSummary, generateDecision, generateInsights } = require('./src/services/generate-answers');
@@ -115,14 +116,50 @@ app.get("/health", (req, res) => {
 //     res.render('form')
 // })
 
+app.post("/agents/procedures", async (req, res) => {
+  if (!req.body.prompt || !req.body.sessionId) {
+    return res.status(400).json({
+      code: 400,
+      message: "Invalid input"
+    });
+  }
+
+  let response;
+
+  try {
+    response = await invokeBedrockAgentKB(req.body.prompt, req.body.sessionId);
+  }
+  catch (err) {
+    return res.status(500).json({
+      code: 500,
+      message: err.message
+    });
+  }
+
+  return res.status(200).json({
+    data: {
+      response: response
+    }
+  })
+})
 
 app.get("/work-items", async (req, res) => {
   //   await connectRedis();
+
+
   const workItemData = {
-    subArea: "Change Income",
+    subArea: "Change income",
     ...req.params
   }
   const moreInfo = {};
+
+  const workItemsPath = path.join(__dirname, "src", "model", "work-items.json");
+  const workItems = JSON.parse(fs.readFileSync(workItemsPath));
+
+  if (workItems[workItemData.subArea]) {
+    moreInfo['quickHelp'] = workItems[workItemData.subArea]
+  }
+
   res.render("work-item", {
     workItemData,
     moreInfo

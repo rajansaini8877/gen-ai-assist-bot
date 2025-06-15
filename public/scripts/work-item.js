@@ -1,25 +1,26 @@
-
 $(document).ready(function () {
   const chatMessages = $('#chat-messages');
   const chatInput = $('#chat-input');
   const sendButton = $('#send-button');
   const predefinedQuestions = $('.predefined-q'); // Select all predefined question links
 
+  const sessionId = crypto.randomUUID();
+
   // Function to get current time formatted as HH:MM AM/PM
-            function getCurrentTime() {
-                const now = new Date();
-                let hours = now.getHours();
-                const minutes = now.getMinutes();
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // The hour '0' should be '12'
-                const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
-                return `${hours}:${minutesFormatted} ${ampm}`;
-            }
+  function getCurrentTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
+    return `${hours}:${minutesFormatted} ${ampm}`;
+  }
 
   function sendMessage(messageText) {
     // If messageText is not provided, get it from the input field
-    
+
     if (messageText === undefined) {
       messageText = chatInput.val().trim();
     }
@@ -44,32 +45,36 @@ $(document).ready(function () {
                 `);
 
     // Add bot typing indicator
-                const typingIndicator = $(`
+    const typingIndicator = $(`
                     <div class="message bot typing" id="typing-indicator">
                         <div class="ui circular image avatar">
                             <img src="/assets/bot.png">
                         </div>
                         <div class="content">
                             <span class="jumping-dots">
-  <span class="dot-1">
-  <i class="tiny circle icon"></i>
-  </span>
-  <span class="dot-2">
-  <i class="tiny circle icon"></i>
-  </span>
-  <span class="dot-3">
-  <i class="tiny circle icon"></i>
-  </span>
-</span>
+                              <span class="dot-1">
+                                <i class="tiny circle icon"></i>
+                              </span>
+                              <span class="dot-2">
+                                <i class="tiny circle icon"></i>
+                              </span>
+                              <span class="dot-3">
+                                <i class="tiny circle icon"></i>
+                              </span>
+                            </span>
                         </div>
                     </div>
                 `);
-                chatMessages.append(typingIndicator);
-                chatMessages.scrollTop(chatMessages[0].scrollHeight); // Scroll to bottom to show typing
+    chatMessages.append(typingIndicator);
+    chatMessages.scrollTop(chatMessages[0].scrollHeight); // Scroll to bottom to show typing
 
     // Simulate bot response (replace with actual backend integration)
     // In a real application, you'd send `messageText` to your backend here.
-    setTimeout(() => {
+
+    $.post('/agents/procedures', {
+      prompt: messageText,
+      sessionId
+    }, (data) => {
 
       $('#typing-indicator').remove();
 
@@ -81,13 +86,13 @@ $(document).ready(function () {
                                 <img src="/assets/bot.png">
                             </div>
                             <div class="content">
-                                You asked: "${messageText}". I'm looking up information for that.
+                                You asked: "${messageText}" - ${data}.
                                 <span class="timestamp">${botTimestamp}</span>
                             </div>
                         </div>
                     `);
       chatMessages.scrollTop(chatMessages[0].scrollHeight); // Scroll to bottom
-    }, 2000);
+    });
 
     chatInput.val(''); // Clear input
     chatMessages.scrollTop(chatMessages[0].scrollHeight); // Scroll to bottom

@@ -19,17 +19,11 @@
   <div id="chat-app-wrapper" class="ui raised segment">
     <div id="main-content">
       <div id="predefined-questions-container">
-        <h4 class="ui header">Quick Questions</h4>
+        <h4 class="ui header">Quick Help</h4>
         <div class="ui relaxed list">
-          <a class="item predefined-q" data-question="What are your services?">What are your services?</a>
-          <a class="item predefined-q" data-question="How do I contact support?">How do I contact support?</a>
-          <a class="item predefined-q" data-question="What are your operating hours?">What are your operating hours?</a>
-          <a class="item predefined-q" data-question="Can I get a demo?">Can I get a demo?</a>
-          <a class="item predefined-q" data-question="What payment methods do you accept?">What payment methods do you
-            accept?</a>
-          <a class="item predefined-q" data-question="Do you offer refunds?">Do you offer refunds?</a>
-          <a class="item predefined-q" data-question="How long does shipping take?">How long does shipping take?</a>
-          <a class="item predefined-q" data-question="Where are you located?">Where are you located?</a>
+          <% for(const item of moreInfo.quickHelp) { %>
+          <a class="item predefined-q" data-question="<%= `For this ${workItemData.subArea} request, provide a step-by-step procedure or instructions related to ${item} from the knowledge base. List each step clearly and in the order which should be performed.` %>"><%= item %></a>
+          <% } %>
         </div>
       </div>
 
@@ -53,13 +47,6 @@
             </div>
           </div>
           <div class="message user">
-            <div class="content">
-              Hello, I'm looking for some information.
-              <span class="timestamp">10:30 PM</span>
-            </div>
-            <div class="ui circular image avatar">
-              <img src="/assets/user.png">
-            </div>
           </div>
         </div>
 
