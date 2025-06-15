@@ -1,7 +1,7 @@
 const { BedrockAgentRuntimeClient, InvokeAgentCommand  } = require("@aws-sdk/client-bedrock-agent-runtime");
 
 const config = {
-    region: "eu-west-1"
+    region: "eu-west-2"
 };
 
 const invokeBedrockAgentKB = async (prompt, sessionId) => {
