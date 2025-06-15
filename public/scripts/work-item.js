@@ -76,6 +76,8 @@ $(document).ready(function () {
       sessionId
     }, (data) => {
 
+      const responseHTML = marked.parse(data.data.response);
+
       $('#typing-indicator').remove();
 
       const botTimestamp = getCurrentTime();
@@ -86,7 +88,8 @@ $(document).ready(function () {
                                 <img src="/assets/bot.png">
                             </div>
                             <div class="content">
-                                ${data.data.response}
+                                ${responseHTML}
+                                <a href='https://changetoincomevideo.s3.eu-west-2.amazonaws.com/UX-CoC-Income-1080p.mp4' target='_blank'>Need more information? Click here for video</>
                                 <span class="timestamp">${botTimestamp}</span>
                             </div>
                         </div>
