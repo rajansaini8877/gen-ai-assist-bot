@@ -138,7 +138,7 @@ app.post("/agents/procedures", async (req, res) => {
 
   return res.status(200).json({
     data: {
-      response: response
+      response: response.completion
     }
   })
 })

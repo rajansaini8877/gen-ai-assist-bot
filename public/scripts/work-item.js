@@ -86,7 +86,7 @@ $(document).ready(function () {
                                 <img src="/assets/bot.png">
                             </div>
                             <div class="content">
-                                You asked: "${messageText}" - ${data}.
+                                ${data}
                                 <span class="timestamp">${botTimestamp}</span>
                             </div>
                         </div>
