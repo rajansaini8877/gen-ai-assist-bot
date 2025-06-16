@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
-const { invokeBedrockAgentKB } = require("./src/services/generate-answer");
+const { invokeBedrockAgentKB, invokeBedrockAgentHistory } = require("./src/services/generate-answer");
 const app = express();
 // const { fetchSimilarAct, fetchSimilarAppeal } = require('./src/services/fetch-similar');
 // const { generateAnswer, generateSummary, generateDecision, generateInsights } = require('./src/services/generate-answers');
@@ -143,13 +143,40 @@ app.post("/agents/procedures", async (req, res) => {
   })
 })
 
+app.post("/agents/history", async (req, res) => {
+  if (!req.body.prompt || !req.body.sessionId) {
+    return res.status(400).json({
+      code: 400,
+      message: "Invalid input"
+    });
+  }
+
+  let response;
+
+  try {
+    response = await invokeBedrockAgentHistory(req.body.prompt, req.body.sessionId);
+  }
+  catch (err) {
+    return res.status(500).json({
+      code: 500,
+      message: err.message
+    });
+  }
+
+  return res.status(200).json({
+    data: {
+      response: response.completion
+    }
+  })
+})
+
 app.get("/work-items", async (req, res) => {
   //   await connectRedis();
 
 
   const workItemData = {
     subArea: "Change income",
-    ...req.params
+    ...req.query
   }
   const moreInfo = {};
 
@@ -168,11 +195,12 @@ app.get("/work-items", async (req, res) => {
 
 app.get("/cases", async (req, res) => {
   //   await connectRedis();
-  const caseData = req.params;
-  const moreInfo = {};
+  const caseData = {
+    ...req.query
+  }
+  // console.log(Object.keys(req.query));
   res.render("case", {
-    caseData,
-    moreInfo
+    caseData
   });
 });
 

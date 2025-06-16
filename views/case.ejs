@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/styles/work-item.css">
   <script src="/semantic/dist/semantic.min.js"></script>
-  <script src="/scripts/work-item.js"></script>
+  <script src="/scripts/case.js"></script>
 </head>
 
 <body>
@@ -22,9 +22,12 @@
       <div id="predefined-questions-container">
         <h4 class="ui header">Quick Help</h4>
         <div class="ui relaxed list">
-          <% for(const item of moreInfo.quickHelp) { %>
-          <a class="item predefined-q" data-question="<%= `For this ${workItemData.subArea} request, provide a step-by-step procedure or instructions related to ${item} from the knowledge base. List each step clearly and in the order which should be performed.` %>"><%= item %></a>
-          <% } %>
+          <a class="item predefined-q" data-question="Key info">Key info</a>
+          <a class="item predefined-q" data-question="Case summary">Case summary</a>
+          <a class="item predefined-q" data-question="Case history">Case history</a>
+          <a class="item predefined-q" data-question="Potential actions">Potential actions</a>
+          <a class="item predefined-q" data-question="Open service request">Open service request</a>
+          <a class="item predefined-q" data-question="Online statement">Online statement</a>
         </div>
       </div>
 
@@ -43,7 +46,7 @@
               <img src="/assets/bot.png">
             </div>
             <div class="content">
-              Hi there! How can I help you with work item <%= workItemData.workItemNumber %>?
+              Hi there! How can I help you with case <%= caseData.caseNumber %>?
               <span class="timestamp">10:30 PM</span>
             </div>
           </div>
@@ -65,6 +68,14 @@
 
 
   </div>
+
+  <script>
+    const caseNumber = '<%= caseData.caseNumber %>';
+  const workItemNumber = '<%= caseData.workItemNumber %>';
+  const crn = '<%= caseData.crn %>';
+  console.log("hereeee");
+  console.log(crn);
+  </script>
 
 </body>
 
