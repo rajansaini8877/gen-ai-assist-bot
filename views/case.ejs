@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Semantic UI Chatbot</title>
+  <title>AI Agent Assist Demo</title>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -47,7 +47,7 @@
             </div>
             <div class="content">
               Hi there! How can I help you with case <%= caseData.caseNumber %>?
-              <span class="timestamp">10:30 PM</span>
+                <span class="timestamp"></span>
             </div>
           </div>
           <div class="message user">
@@ -71,10 +71,8 @@
 
   <script>
     const caseNumber = '<%= caseData.caseNumber %>';
-  const workItemNumber = '<%= caseData.workItemNumber %>';
-  const crn = '<%= caseData.crn %>';
-  console.log("hereeee");
-  console.log(crn);
+    const workItemNumber = '<%= caseData.workItemNumber %>';
+    const crn = '<%= caseData.crn %>';
   </script>
 
 </body>

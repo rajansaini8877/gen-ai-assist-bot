@@ -3,5 +3,10 @@
         "Paying parent reported change",
         "Receiving parent reported change",
         "Nil income"
+    ],
+    "Annual review": [
+        "New income is more than previous year",
+        "New income is less than previous year",
+        "No income reported in current year"
     ]
 }

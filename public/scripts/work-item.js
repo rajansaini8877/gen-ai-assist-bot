@@ -1,22 +1,24 @@
+// Function to get current time formatted as HH:MM AM/PM
+function getCurrentTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // The hour '0' should be '12'
+  const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${minutesFormatted} ${ampm}`;
+}
+
 $(document).ready(function () {
   const chatMessages = $('#chat-messages');
   const chatInput = $('#chat-input');
   const sendButton = $('#send-button');
   const predefinedQuestions = $('.predefined-q'); // Select all predefined question links
 
-  const sessionId = crypto.randomUUID();
+  $('.timestamp').text(getCurrentTime());
 
-  // Function to get current time formatted as HH:MM AM/PM
-  function getCurrentTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // The hour '0' should be '12'
-    const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
-    return `${hours}:${minutesFormatted} ${ampm}`;
-  }
+  const sessionId = crypto.randomUUID();
 
   function sendMessage(messageText) {
     // If messageText is not provided, get it from the input field

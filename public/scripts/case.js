@@ -1,43 +1,45 @@
+// Function to get current time formatted as HH:MM AM/PM
+function getCurrentTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // The hour '0' should be '12'
+  const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${minutesFormatted} ${ampm}`;
+}
+
 $(document).ready(function () {
   const chatMessages = $('#chat-messages');
   const chatInput = $('#chat-input');
   const sendButton = $('#send-button');
   const predefinedQuestions = $('.predefined-q'); // Select all predefined question links
 
-//   const caseNumber = '<%= caseData.caseNumber %>';
-//   const workItemNumber = '<%= workItemNumber %>';
-//   const crn = '<%= crn %>';
+  $('.timestamp').text(getCurrentTime());
+
+  //   const caseNumber = '<%= caseData.caseNumber %>';
+  //   const workItemNumber = '<%= workItemNumber %>';
+  //   const crn = '<%= crn %>';
 
   const sessionId = crypto.randomUUID();
-
-  // Function to get current time formatted as HH:MM AM/PM
-  function getCurrentTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // The hour '0' should be '12'
-    const minutesFormatted = minutes < 10 ? '0' + minutes : minutes;
-    return `${hours}:${minutesFormatted} ${ampm}`;
-  }
 
   function getContextTemplate(context) {
     let contextTemplate = "";
 
     switch (context) {
-        case "Key info":
-            contextTemplate = `get CRN:${crn},
+      case "Key info":
+        contextTemplate = `get CRN:${crn},
         - Domestic violence: ? 
         - In Benefit: ? 
         - number of calls in past month: ? 
         - open Complaint service request: ? 
         - number of open service request: ? 
         - number of expired, Next action due date: ?`;
-            break;
+        break;
 
-        case "Case summary":
-            contextTemplate = `Summarise the case with above details for CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber},
+      case "Case summary":
+        contextTemplate = `Summarise the case with above details for CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber},
         example content
         Case summary:
         Case with CRN XXXX has number of cases,
@@ -50,18 +52,18 @@ $(document).ready(function () {
         Service Request, Open date:, Closed date:
         Recent communication are:
         bullet point open in last 2 months`;
-            break;
+        break;
 
-        case "Potential actions":
-            contextTemplate = `Identify Open service request for CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}  for potential action and any recent communications,
+      case "Potential actions":
+        contextTemplate = `Identify Open service request for CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}  for potential action and any recent communications,
         example content for Potential actions:
         Open Service request for potential actions: bullet point include open date
         Recent communication to be considered for potential actions: bullet point created in last 2 months
         Don't provide any instructions for potential actions or recommend any response for open service request.`;
-            break;
+        break;
 
-        case "Open service request":
-            contextTemplate = `Get Open Service request details using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
+      case "Open service request":
+        contextTemplate = `Get Open Service request details using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
         Example content:
         Open service request are
         - Open date:
@@ -69,15 +71,15 @@ $(document).ready(function () {
         - Link:
         - Next action due date:
         if Next action due date is in the past then mention Next action due date has expired`;
-            break;
+        break;
 
-        case "Online statement":
-            contextTemplate = `Get online statement using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
+      case "Online statement":
+        contextTemplate = `Get online statement using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
         Populate Online statement in a table`;
-            break;
+        break;
 
-        case "Case history":
-            contextTemplate = `get Service request, communications, online statement using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
+      case "Case history":
+        contextTemplate = `get Service request, communications, online statement using CRN:${crn}, caseNumber:${caseNumber}, srId:${workItemNumber}
         Example of case activities output
         {{Open date}}, {{Service Request}}, Closed date: \n
         {{Created}}, {{Type}}, Reason:, Outcome: \n
@@ -85,15 +87,15 @@ $(document).ready(function () {
         {{Open date}}, {{Service Request}}, Closed date: \n
         {{Transaction date}},  {{Description}}, Balance:, Credit Amount:, Debit Amount: \n
         {{Created}}, {{Type}}, Reason:, Outcome: \n`;
-            break;
+        break;
 
-        default:
-            return context;
+      default:
+        return context;
     }
 
     console.log(contextTemplate);
     return contextTemplate;
-}
+  }
 
   function sendMessage(messageText) {
     // If messageText is not provided, get it from the input field

@@ -1,4 +1,4 @@
-const { BedrockAgentRuntimeClient, InvokeAgentCommand  } = require("@aws-sdk/client-bedrock-agent-runtime");
+const { BedrockAgentRuntimeClient, InvokeAgentCommand } = require("@aws-sdk/client-bedrock-agent-runtime");
 
 const config = {
     region: "eu-west-2"
@@ -7,7 +7,7 @@ const config = {
 const invokeBedrockAgentKB = async (prompt, sessionId) => {
     try {
         const client = new BedrockAgentRuntimeClient(config);
-       
+
         const params = {
             agentId: '1VGGIAXJHZ',
             agentAliasId: '52GQYQOYYV',
@@ -39,7 +39,7 @@ const invokeBedrockAgentKB = async (prompt, sessionId) => {
 const invokeBedrockAgentHistory = async (prompt, sessionId) => {
     try {
         const client = new BedrockAgentRuntimeClient(config);
-       
+
         const params = {
             agentId: '58ATPG2F3D',
             agentAliasId: '5EMPYWUCZ6',
